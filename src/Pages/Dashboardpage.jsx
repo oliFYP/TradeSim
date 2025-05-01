@@ -57,12 +57,12 @@ const PresentationPage = () => {
             </div>
 
             <div className="mt-10">
-              <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                <div className="relative">
+              <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 md:justify-items-center">
+                <div className="relative flex flex-col items-center">
                   <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                     <TrendingUp className="h-6 w-6" />
                   </div>
-                  <div className="mt-5">
+                  <div className="mt-5 text-center">
                     <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
                       Real-time Market Data
                     </h3>
@@ -73,11 +73,11 @@ const PresentationPage = () => {
                   </div>
                 </div>
 
-                <div className="relative">
+                <div className="relative flex flex-col items-center">
                   <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                     <Shield className="h-6 w-6" />
                   </div>
-                  <div className="mt-5">
+                  <div className="mt-5 text-center">
                     <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
                       Risk-Free Trading
                     </h3>
@@ -87,11 +87,11 @@ const PresentationPage = () => {
                   </div>
                 </div>
 
-                <div className="relative">
+                <div className="relative flex flex-col items-center">
                   <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                     <BookOpen className="h-6 w-6" />
                   </div>
-                  <div className="mt-5">
+                  <div className="mt-5 text-center">
                     <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
                       Learning Resources
                     </h3>
@@ -101,11 +101,11 @@ const PresentationPage = () => {
                   </div>
                 </div>
 
-                <div className="relative">
+                <div className="relative flex flex-col items-center">
                   <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white">
                     <Users className="h-6 w-6" />
                   </div>
-                  <div className="mt-5">
+                  <div className="mt-5 text-center">
                     <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
                       Community
                     </h3>
@@ -120,7 +120,7 @@ const PresentationPage = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-primary-600">
+        <div className="bg-gray-900">
           <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
               <span className="block">Ready to start trading?</span>

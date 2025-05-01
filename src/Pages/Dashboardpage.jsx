@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/layout/Navbar";
 import { Link } from "react-router-dom";
+import TickerTape from "../components/layout/Tickertape";
 import {
   DollarSign,
   TrendingUp,
@@ -14,7 +15,7 @@ const PresentationPage = () => {
   return (
     <div className="w-screen h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
-
+      <TickerTape />
       <main>
         {/* Hero Section */}
         <div className="relative">

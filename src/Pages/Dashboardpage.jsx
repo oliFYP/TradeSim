@@ -198,7 +198,7 @@ const PresentationPage = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-custom-gradient ">
+        <div className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900">
           <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
               <span className="block">Ready to start trading?</span>

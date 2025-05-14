@@ -15,10 +15,11 @@ const PresentationPage = () => {
   return (
     <div className="w-screen h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
-      <TickerTape />
+
       <main>
         {/* Hero Section */}
         <div className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900">
+          <TickerTape />
           {/* Animated Trading Graph Background */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-800/30 to-primary-900/50" />

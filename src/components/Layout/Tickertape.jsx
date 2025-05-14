@@ -35,7 +35,7 @@ const TickerTape = () => {
   }, []);
 
   return (
-    <div className="overflow-hidden bg-gray-900 text-white whitespace-nowrap w-full">
+    <div className="overflow-hidden bg-custom-gradient  text-white whitespace-nowrap w-full">
       <div className="animate-marquee flex gap-10 py-1">
         {" "}
         {/* Reduced the padding here */}

@@ -60,18 +60,15 @@ button:focus-visible {
 
 @layer utilities {
   .animate-marquee {
-    display: flex; /* Changed from inline-block to flex */
-    flex-direction: row; /* Ensure horizontal layout */
-    gap: 10px; /* Adjust the space between the ticker items */
     animation: marquee 20s linear infinite;
   }
 
   @keyframes marquee {
     0% {
-      transform: translateX(100%); /* Starts from the right */
+      transform: translateX(0%);
     }
     100% {
-      transform: translateX(-100%); /* Ends on the left */
+      transform: translateX(-50%);
     }
   }
 }

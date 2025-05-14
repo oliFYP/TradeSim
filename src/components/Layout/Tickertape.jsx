@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-const symbols = ["AAPL", "GOOGL", "AMZN", "MSFT", "TSLA", "NVDA"];
+const symbols = [
+  "AAPL",
+  "GOOGL",
+  "AMZN",
+  "MSFT",
+  "TSLA",
+  "NVDA",
+  "META",
+  "AMD",
+];
 const API_KEY = "d09o5chr01qus8recl70d09o5chr01qus8recl7g"; // Replace with your real key
 
 const TickerTape = () => {
@@ -30,29 +39,29 @@ const TickerTape = () => {
     };
 
     fetchQuotes();
-    const interval = setInterval(fetchQuotes, 10000); // refresh every 10s
+    const interval = setInterval(fetchQuotes, 30000); // refresh every 10s
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="overflow-hidden   text-white whitespace-nowrap w-full">
-      <div className="animate-marquee flex gap-10 py-1">
-        {" "}
-        {/* Reduced the padding here */}
-        {quotes.map(({ symbol, price, change, percent }) => (
-          <div
-            key={symbol}
-            className="flex items-center gap-2 px-4 py-1 rounded-md"
-          >
-            <span className="font-bold">{symbol}</span>
-            <span>${price?.toFixed(2)}</span>
-            <span
-              className={`${change >= 0 ? "text-green-400" : "text-red-400"}`}
+    <div className="overflow-hidden w-full text-white whitespace-nowrap ">
+      <div className="flex animate-marquee w-max">
+        {[...quotes, ...quotes].map(
+          ({ symbol, price, change, percent }, idx) => (
+            <div
+              key={`${symbol}-${idx}`}
+              className="flex items-center gap-2 px-4 py-1 rounded-md"
             >
-              ({change?.toFixed(2)} / {percent?.toFixed(2)}%)
-            </span>
-          </div>
-        ))}
+              <span className="font-bold">{symbol}</span>
+              <span>${price?.toFixed(2)}</span>
+              <span
+                className={`${change >= 0 ? "text-green-400" : "text-red-400"}`}
+              >
+                ({change?.toFixed(2)} / {percent?.toFixed(2)}%)
+              </span>
+            </div>
+          )
+        )}
       </div>
     </div>
   );

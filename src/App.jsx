@@ -1,4 +1,6 @@
 import React from "react";
+import { AuthProvider } from "./context/AuthContext";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,14 +9,20 @@ import {
 } from "react-router-dom";
 import DashboardPage from "./Pages/Dashboardpage";
 import AuthPage from "./Pages/Authpage";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/TradeSim" element={<DashboardPage />} />
-      </Routes>
-    </Router>
+    <ThemeProvider>
+      <AuthProvider>
+        <Router basename="/TradeSim">
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

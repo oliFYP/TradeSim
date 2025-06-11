@@ -1,38 +1,66 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  DollarSign,
-  TrendingUp,
-  Shield,
-  BookOpen,
-  Users,
-  ArrowRight,
-} from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
+import { DollarSign, LogOut, Sun, Moon, User } from "lucide-react";
 
-function Navbar() {
+const Navbar = () => {
+  const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/auth");
+  };
+
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <DollarSign className="h-8 w-8 text-primary-600" />
-            <span className="ml-2 text-2xl font-bold text-gray-900 dark:text-white">
+    <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-3 px-6 sticky top-0 z-10">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <div className="flex items-center text-primary-600 dark:text-primary-400">
+            <DollarSign className="h-6 w-6" />
+            <span className="ml-2 text-xl font-bold text-gray-800 dark:text-white">
               TradeSim
             </span>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link
-              to="/auth"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+        </div>
+
+        <div className="flex items-center space-x-4">
+          {user && (
+            <div className="flex items-center text-gray-700 dark:text-gray-300">
+              <User className="h-4 w-4 mr-1" />
+              <span className="hidden sm:inline-block">{user.name}</span>
+            </div>
+          )}
+
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+            aria-label={
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </button>
+
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+              aria-label="Log out"
             >
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+              <LogOut className="h-5 w-5" />
+            </button>
+          )}
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

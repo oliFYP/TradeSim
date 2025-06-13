@@ -45,7 +45,7 @@ const TickerTape = () => {
 
   return (
     <div className="overflow-hidden w-full text-white whitespace-nowrap ">
-      <div className="flex animate-marquee w-max">
+      <div className="flex animate-marquee w-[200%]">
         {[...quotes, ...quotes].map(
           ({ symbol, price, change, percent }, idx) => (
             <div

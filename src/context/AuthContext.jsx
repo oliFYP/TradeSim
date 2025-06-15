@@ -1,4 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 const AuthContext = createContext();
 
@@ -15,28 +23,61 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session on initial load
-    const storedUser = localStorage.getItem("tradeSimUser");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setIsLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        setUser({
+          id: firebaseUser.uid,
+          email: firebaseUser.email,
+          name: firebaseUser.displayName,
+          funds: 100000,
+        });
+      } else {
+        setUser(null);
+      }
+      setIsLoading(false);
+    });
+
+    return unsubscribe;
   }, []);
 
+  const signup = async (name, email, password) => {
+    setIsLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, { displayName: name });
+
+      setUser({
+        id: userCredential.user.uid,
+        email,
+        name,
+        funds: 100000,
+      });
+    } catch (error) {
+      console.error("Singnup failed:", error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const login = async (email, password) => {
     setIsLoading(true);
     try {
-      // In a real app, this would be an API call
-      // For demo, we'll simulate a successful login with mock user data
-      const mockUser = {
-        id: "123456",
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
         email,
-        name: email.split("@")[0],
-        funds: 100000, // Start with $100,000
-      };
+        password
+      );
 
-      setUser(mockUser);
-      localStorage.setItem("tradeSimUser", JSON.stringify(mockUser));
+      setUser({
+        id: userCredential.user.uid,
+        email,
+        name: userCredential.user.displayName,
+        funds: 100000, // Replace with actual logic later
+      });
     } catch (error) {
       console.error("Login failed:", error);
       throw error;
@@ -45,33 +86,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = async (name, email, password) => {
-    setIsLoading(true);
-    try {
-      // In a real app, this would be an API call
-      // For demo, we'll simulate a successful signup with mock user data
-      const mockUser = {
-        id: "123456",
-        email,
-        name,
-        funds: 100000, // Start with $100,000
-      };
-
-      setUser(mockUser);
-      localStorage.setItem("tradeSimUser", JSON.stringify(mockUser));
-    } catch (error) {
-      console.error("Signup failed:", error);
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const logout = () => {
+  const logout = async () => {
+    await signOut(auth);
     setUser(null);
-    localStorage.removeItem("tradeSimUser");
   };
-
   return (
     <AuthContext.Provider
       value={{
